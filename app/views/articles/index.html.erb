@@ -3,7 +3,10 @@
 <ul>
     <% @articles.each do |article| %> <!--- a mesma variavel gerada no Controller / .each (cada artigo) / faz para cada article --->
         <li>
-            <%= article.title %> <!--- para aparecer na tela usa o '=' --->
+        <!--- <a href="/articles/<%= article.id %>"> Substitui esse codigo por um helper 'resources :articles'--->
+        <!--- <a href="<%= article_path(article) %>"> Substitui esse codigo por um helper   --->
+            <%= link_to article.title, article %> <!--- para aparecer na tela usa o '=' --->
+            </a>
         </li>
     <% end %> <!--- finaliza --->
 </ul>

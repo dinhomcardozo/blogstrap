@@ -3,6 +3,9 @@ require "active_support/core_ext/integer/time"
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
+  # Permite o host após subir no GitHub o projeto - 20241123
+  config.hosts << "tm3s2wt8-3000.brs.devtunnels.ms"
+
   # Make code changes take effect immediately without server restart.
   config.enable_reloading = true
 

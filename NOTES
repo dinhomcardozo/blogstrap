@@ -31,7 +31,7 @@ em config/routes adicionamos:
   Tipos de comando:
 
   article = Article.new(title: 'Olá, Rail', body: 'Este é o primeiro post')
-   #uma variavel article = NomeDoModel.new(title: '', body: '')
+   #uma variavel article = Article.new(title: '', body: '')
 
 => #<Article:0x0000015a8d6818c8 id: nil, title: "Olá, Rails", body: "Este é o primeiro post", created_at: nil, updated_at: nil>
 
@@ -40,4 +40,57 @@ article.save #salva a variavel criada
 Article.find(1) #procura eno Model o articgo id 1
 
 Article.all #traz todos os artigos
+
+/------------- clicar em um artigo e abri-lo inteiro #SHOW
+
+1- Cria um routes: blogstrap\config\routes.rb
+
+get '/articles/:id', to: 'articles#show' #Indicar no show o id do article e abre o show - cria no controller tbm app\controllers\articles_controller.rb
+
+2- Cria no controller: blogstrap\app\controllers\articles_controller.rb
+
+def show # criado antes no routes config\routes.rb
+  @article = Article.find(params[:id]) #cria uma variavel e puxa do Model Article e procura pelo ID no caso do artigo
+end
+
+ (passo 2 seria mais ou menos o que fazer no terminal:
+ 
+ rails c
+ Article.find(1)
+
+ 3- Cria uma view blogstrap\app\views\articles\show.html.erb
+
+ <h1><%= @article.title  %></h1>
+
+ <p> <%= @article.body %> </p>
+
+ 4- visualiza um exemplo locahost:3000/articles/1
+
+ 5- Colocar o link dos articles listados para os ids
+
+  <a href="/articles/<% article.id %>">  <!--- cria link para variavel article.id --->
+    <%= article.title %> <!--- para aparecer na tela usa o '=' --->
+  </a>
+
+  code inteiro:
+
+<h1>Artigos</h1>
+<ul>
+    <% @articles.each do |article| %> <!--- a mesma variavel gerada no Controller / .each (cada artigo) / faz para cada article --->
+        <li>
+            <a href="/articles/<%= article.id %>">
+            <%= article.title %> <!--- para aparecer na tela usa o '=' --->
+            </a>
+        </li>
+    <% end %> <!--- finaliza --->
+</ul>
+
+6- HELPERS para usar nas views
+
+O link acima funciona, mas o mais adequado é fazer assim:
+
+<a href="<%= article_path(article) %>">
+
+Ao testar a page, vc não consegue acessar, pq antes tem que criar um HELPER
+
 
