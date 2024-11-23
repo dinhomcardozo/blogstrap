@@ -1,0 +1,43 @@
+em config/routes adicionamos:
+
+  get '/articles', to: 'articles#index' #se chegar uma url /articles - direcione ela para CONTROLLER#ACTION
+
+  Criando uma rota
+
+  executamos no terminal:
+
+  rails g controller Articles index --skip-routes
+
+  Criando um Controller Articles e pulando a criação de rotas, pois já criamos anteriormente em config/routes
+  (\blogstrap\app\controllers\articles_controller.rb)
+
+  /--------------- Para alterar as rotas de uma pagina ser a page inicial:
+
+  blogstrap\config\routes.rb
+
+  coloca: 
+  root 'articles#index' #Controller#Action
+
+  Criar MODEL para os Articles 
+  rails g model Article title:string body:text
+
+  Caso precise editar os campos do Model basta ir até o Model migrado: \db\migrate\20241123021919_create_articles.rb
+
+  Após criar Model, sempre execute o comando: rails db:migrate
+
+
+  /-------------- Rails Console (Acesso ao projeto e o Models)
+
+  Tipos de comando:
+
+  article = Article.new(title: 'Olá, Rail', body: 'Este é o primeiro post')
+   #uma variavel article = NomeDoModel.new(title: '', body: '')
+
+=> #<Article:0x0000015a8d6818c8 id: nil, title: "Olá, Rails", body: "Este é o primeiro post", created_at: nil, updated_at: nil>
+
+article.save #salva a variavel criada
+
+Article.find(1) #procura eno Model o articgo id 1
+
+Article.all #traz todos os artigos
+

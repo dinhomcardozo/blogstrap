@@ -1,0 +1,9 @@
+<h1>Artigos</h1>
+
+<ul>
+    <% @articles.each do |article| %> <!--- a mesma variavel gerada no Controller / .each (cada artigo) / faz para cada article --->
+        <li>
+            <%= article.title %> <!--- para aparecer na tela usa o '=' --->
+        </li>
+    <% end %> <!--- finaliza --->
+</ul>
