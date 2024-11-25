@@ -1,12 +1,11 @@
 <h1>Artigos</h1>
 
+<%= link_to 'Novo Artigo', new_article_path %>
+
 <ul>
     <% @articles.each do |article| %> <!--- a mesma variavel gerada no Controller / .each (cada artigo) / faz para cada article --->
         <li>
-        <!--- <a href="/articles/<%= article.id %>"> Substitui esse codigo por um helper 'resources :articles'--->
-        <!--- <a href="<%= article_path(article) %>"> Substitui esse codigo por um helper   --->
             <%= link_to article.title, article %> <!--- para aparecer na tela usa o '=' --->
-            </a>
         </li>
     <% end %> <!--- finaliza --->
 </ul>

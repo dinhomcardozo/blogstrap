@@ -1,0 +1,33 @@
+<%= form_with model: article do |form| %> <!--- local true --->
+  <% if article.errors.any? %> <!-- Verifica se há erros de validação -->
+    <div class="errors">
+      <h2>Erros:</h2>
+      <ul>
+        <% article.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :title %>
+    <%= form.text_field :title %>
+    <% article.errors.full_messages_for(:title).each do |message| %>
+      <div class="error-message"><%= message %></div>
+    <% end %> <!--- fecha o .each --->
+  </div>
+
+  <div>
+    <%= form.label :body %>
+    <%= form.text_area :body %>
+    <% article.errors.full_messages_for(:body).each do |message| %>
+      <div class="error-message"><%= message %></div>
+    <% end %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+
+<% end %>

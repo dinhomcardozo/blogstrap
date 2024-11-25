@@ -41,7 +41,7 @@ Article.find(1) #procura eno Model o articgo id 1
 
 Article.all #traz todos os artigos
 
-/------------- clicar em um artigo e abri-lo inteiro #SHOW
+/------------- clicar em um artigo e abri-lo inteiro #SHOW --/
 
 1- Cria um routes: blogstrap\config\routes.rb
 
@@ -93,4 +93,73 @@ O link acima funciona, mas o mais adequado é fazer assim:
 
 Ao testar a page, vc não consegue acessar, pq antes tem que criar um HELPER
 
+blogstrap\config\routes.rb
 
+resources :articles
+
+OU SEJA: ao criar um HELPER, ele traz todos os parametros do CRUD para você, /articles/:id, articles#show, etc
+  Sem que vc precise descrever cada um nas ROUTES.
+
+USE HELPER para contrução de URLS!!!!!!!
+
+
+/------------- CRIANDO UM ARTICLE --/
+
+No terminal, quando fazemos> article = Article.new
+ele cria uma instancia de Article vazia
+
+article.title = ""
+article.body = ""
+article.save
+
+Ou faça dessa forma no COntroller: 
+
+def new
+    @article = Article.new #clica num botão para criar um novo artigo
+  end
+
+  def created
+    @article = Article.new() #joga os parametros definidos () e joga para Article
+
+    if @article.save #se retornar true
+      redirect_to @article #redireciona para o artigo (no caso, show)
+    else
+      render :new #se der errado, ele rederiza o NEW (Render mantem o que foi digitado e não Redirect, q recarregaria novamente)
+  end
+
+1- cria um arquivo padrão new: blogstrap\app\views\articles\new.html.erb
+
+use o helper fornecido pelo Rails: form_with
+
+Crie para cada campo um form.label e um form.text_field ou form.text_area etc
+
+Crie um botão
+
+/----------- CRIAR UM 'EDITAR'
+
+No arquivo app\controllers\articles_controller.rb
+
+Cria-se um método edit:
+
+  def edit
+    @article = Article.find(params[:id])
+  end
+
+  Na view: Pode copiar o mesmo form de New
+
+  /--------- PARTIALS
+
+  Recorta a parte de form de edit e new e criar um arquivo Partials para um form compartilhado: app\views\articles\_form.html.erb
+
+Cria um link EDITAR em SHOW  <li> <%= link_to 'Editar', edit_article_path(@article) %></li> 
+
+É necessário criar um método Update no controller com pequenas diferenças do create
+  
+def update
+  @article = Article.find(params[:id])
+
+  if @article.update(article_params) # Se salvar com sucesso os parametros permitidos
+    redirect_to @article # Redireciona para o artigo recém-criado (no caso, a página show)
+  else
+    render :edit # Se houver erro, renderiza a página de edição (mantém os dados preenchidos)
+  end
